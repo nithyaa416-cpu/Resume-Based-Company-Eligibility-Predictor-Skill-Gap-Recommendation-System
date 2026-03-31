@@ -1,0 +1,66 @@
+{
+  "report_metadata": {
+    "generated_at": "2026-01-24T20:07:18.173396",
+    "report_type": "resume_analysis",
+    "version": "1.0"
+  },
+  "user_info": {
+    "filename": "test_resume.pdf",
+    "analysis_date": "2024-01-24"
+  },
+  "analysis_data": {
+    "company": "Google",
+    "role": "Software Engineer",
+    "optimization": {
+      "overall_score": 85.5,
+      "scores": {
+        "structure": 90,
+        "ats_compatibility": 80,
+        "content_quality": 86
+      },
+      "suggestions": {
+        "critical": [
+          {
+            "title": "Add Contact Information",
+            "description": "Include email, phone, and LinkedIn profile",
+            "type": "critical",
+            "impact": "high",
+            "category": "structure"
+          }
+        ],
+        "important": [
+          {
+            "title": "Use Stronger Action Verbs",
+            "description": "Replace weak phrases with strong action verbs",
+            "type": "important",
+            "impact": "high",
+            "category": "content"
+          }
+        ],
+        "other": [],
+        "total_count": 8
+      },
+      "summary": {
+        "word_count": 450,
+        "sections_found": 4,
+        "skills_identified": 12
+      }
+    },
+    "ml_analysis": {
+      "ml_eligibility_score": 87,
+      "eligibility_level": "Highly Eligible"
+    },
+    "ats_report": {
+      "total_score": 82,
+      "compatibility_level": "Good",
+      "score_breakdown": {
+        "formatting": 85,
+        "structure": 80,
+        "keywords": 78,
+        "contact_info": 90,
+        "readability": 84
+      }
+    },
+    "generated_at": "2024-01-24T13:00:00Z"
+  }
+}

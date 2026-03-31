@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume-Based Company Eligibility System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .main-content {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+            padding: 30px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #4facfe;
+        }
+
+        .section h2 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+
+        .upload-area {
+            border: 3px dashed #4facfe;
+            border-radius: 10px;
+            padding: 40px;
+            text-align: center;
+            background: white;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .upload-area:hover {
+            border-color: #00f2fe;
+            background: #f0f8ff;
+        }
+
+        .upload-area.dragover {
+            border-color: #00f2fe;
+            background: #e6f3ff;
+            transform: scale(1.02);
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .upload-icon {
+            font-size: 3em;
+            color: #4facfe;
+            margin-bottom: 15px;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin: 10px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(79, 172, 254, 0.3);
+        }
+
+        .btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .company-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .company-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .company-card:hover {
+            border-color: #4facfe;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .company-card.selected {
+            border-color: #00f2fe;
+            background: #f0f8ff;
+        }
+
+        .results-container {
+            display: none;
+            margin-top: 30px;
+        }
+
+        .score-card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 15px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .score-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .score-bar {
+            background: #e9ecef;
+            height: 20px;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+
+        .score-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ff6b6b, #feca57, #48dbfb, #0abde3);
+            border-radius: 10px;
+            transition: width 1s ease;
+        }
+
+        .skills-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .skill-tag {
+            display: inline-block;
+            background: #4facfe;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+            margin: 3px;
+            font-size: 0.9em;
+        }
+
+        .skill-tag.missing {
+            background: #ff6b6b;
+        }
+        
+        .recommendation-section {
+            background: #e8f5e8;
+            border: 1px solid #4caf50;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        .roadmap-section {
+            background: #f0f8ff;
+            border: 1px solid #2196f3;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        .roadmap-phase {
+            background: white;
+            border-left: 4px solid #2196f3;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        
+        .skill-pill {
+            background: #2196f3;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 12px;
+            margin: 2px;
+            display: inline-block;
+            font-size: 0.8em;
+        }
+        
+        .missing-skill-pill {
+            background: #ff6b6b;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 12px;
+            margin: 2px;
+            display: inline-block;
+            font-size: 0.8em;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #4facfe;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .recommendations {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .recommendation-item {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            border-left: 4px solid #fdcb6e;
+        }
+
+        .alert {
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
+        .alert-success {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+
+        .alert-error {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+
+        .text-area {
+            width: 100%;
+            min-height: 200px;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 14px;
+            resize: vertical;
+        }
+
+        .text-area:focus {
+            outline: none;
+            border-color: #4facfe;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🤖 AI-Powered Resume Analyzer</h1>
+            <p>Advanced ML analysis using Sentence-BERT embeddings and semantic similarity</p>
+        </div>
+
+        <div class="main-content">
+            <!-- Resume Upload Section -->
+            <div class="section">
+                <h2>📄 Upload Your Resume</h2>
+                <div class="upload-area" id="uploadArea">
+                    <div class="upload-icon">📁</div>
+                    <h3>Drop your resume here or click to browse</h3>
+                    <p>Supports PDF and DOCX files (Max 10MB)</p>
+                    <input type="file" id="fileInput" class="file-input" accept=".pdf,.docx,.doc">
+                    <button class="btn" onclick="document.getElementById('fileInput').click()">
+                        Choose File
+                    </button>
+                </div>
+                
+                <!-- Manual Text Input Option -->
+                <div style="margin-top: 30px;">
+                    <h3>Or paste your resume text:</h3>
+                    <textarea id="resumeText" class="text-area" placeholder="Paste your resume content here..."></textarea>
+                </div>
+            </div>
+
+            <!-- Company Selection Section -->
+            <div class="section">
+                <h2>🏢 Select Company (Optional)</h2>
+                <p>Choose a specific company to analyze, or analyze against all companies</p>
+                <div id="companiesContainer">
+                    <div class="loading">
+                        <div class="spinner"></div>
+                        <p>Loading companies...</p>
+                    </div>
+                </div>
+                <button class="btn" id="analyzeAllBtn" onclick="analyzeAllCompanies()" disabled>
+                    🤖 ML Analysis - All Companies
+                </button>
+                <button class="btn" id="analyzeSelectedBtn" onclick="analyzeSelectedCompany()" disabled>
+                    🧠 ML Analysis - Selected Company
+                </button>
+            </div>
+
+            <!-- Results Section -->
+            <div id="resultsContainer" class="results-container">
+                <div class="section">
+                    <h2>📊 Analysis Results</h2>
+                    <div id="resultsContent"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let companies = [];
+        let selectedCompany = null;
+        let resumeData = null;
+
+        // Load companies on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            loadCompanies();
+            setupFileUpload();
+        });
+
+        // Setup file upload functionality
+        function setupFileUpload() {
+            const uploadArea = document.getElementById('uploadArea');
+            const fileInput = document.getElementById('fileInput');
+
+            // Drag and drop functionality
+            uploadArea.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                uploadArea.classList.add('dragover');
+            });
+
+            uploadArea.addEventListener('dragleave', function(e) {
+                e.preventDefault();
+                uploadArea.classList.remove('dragover');
+            });
+
+            uploadArea.addEventListener('drop', function(e) {
+                e.preventDefault();
+                uploadArea.classList.remove('dragover');
+                const files = e.dataTransfer.files;
+                if (files.length > 0) {
+                    handleFileUpload(files[0]);
+                }
+            });
+
+            // File input change
+            fileInput.addEventListener('change', function(e) {
+                if (e.target.files.length > 0) {
+                    handleFileUpload(e.target.files[0]);
+                }
+            });
+
+            // Resume text change
+            document.getElementById('resumeText').addEventListener('input', function(e) {
+                if (e.target.value.trim()) {
+                    resumeData = {
+                        text: e.target.value.trim(),
+                        skills: []
+                    };
+                    enableAnalysisButtons();
+                }
+            });
+        }
+
+        // Load companies from API
+        async function loadCompanies() {
+            try {
+                const response = await fetch('/companies');
+                const data = await response.json();
+                companies = data.companies;
+                displayCompanies();
+            } catch (error) {
+                showAlert('Error loading companies: ' + error.message, 'error');
+            }
+        }
+
+        // Display companies grid
+        function displayCompanies() {
+            const container = document.getElementById('companiesContainer');
+            const grid = document.createElement('div');
+            grid.className = 'company-grid';
+
+            companies.forEach(company => {
+                const card = document.createElement('div');
+                card.className = 'company-card';
+                card.innerHTML = `<h3>${company}</h3>`;
+                card.onclick = () => selectCompany(company, card);
+                grid.appendChild(card);
+            });
+
+            container.innerHTML = '';
+            container.appendChild(grid);
+        }
+
+        // Select company
+        function selectCompany(company, cardElement) {
+            // Remove previous selection
+            document.querySelectorAll('.company-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+
+            // Select new company
+            cardElement.classList.add('selected');
+            selectedCompany = company;
+            
+            if (resumeData) {
+                document.getElementById('analyzeSelectedBtn').disabled = false;
+            }
+        }
+
+        // Handle file upload
+        async function handleFileUpload(file) {
+            if (!file) return;
+
+            // Validate file type
+            const allowedTypes = ['application/pdf', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+            if (!allowedTypes.includes(file.type)) {
+                showAlert('Please upload a PDF or DOCX file', 'error');
+                return;
+            }
+
+            // Validate file size (10MB)
+            if (file.size > 10 * 1024 * 1024) {
+                showAlert('File size must be less than 10MB', 'error');
+                return;
+            }
+
+            showLoading('Uploading and processing resume...');
+
+            try {
+                const formData = new FormData();
+                formData.append('resume', file);
+
+                const response = await fetch('/upload', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const data = await response.json();
+
+                if (data.status === 'success') {
+                    resumeData = data.data;
+                    showAlert(`Resume processed successfully! Found ${data.data.skills_found} skills.`, 'success');
+                    enableAnalysisButtons();
+                } else {
+                    showAlert('Error processing resume: ' + data.message, 'error');
+                }
+            } catch (error) {
+                showAlert('Error uploading resume: ' + error.message, 'error');
+            }
+
+            hideLoading();
+        }
+
+        // Enable analysis buttons
+        function enableAnalysisButtons() {
+            document.getElementById('analyzeAllBtn').disabled = false;
+            if (selectedCompany) {
+                document.getElementById('analyzeSelectedBtn').disabled = false;
+            }
+        }
+
+        // Analyze against all companies
+        async function analyzeAllCompanies() {
+            if (!resumeData) {
+                showAlert('Please upload a resume first', 'error');
+                return;
+            }
+
+            showLoading('Running ML-powered analysis against all companies...');
+
+            try {
+                const response = await fetch('/analyze-all', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        resume_text: resumeData.resume_text || resumeData.text
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.status === 'success') {
+                    displayAllCompaniesResults(data);
+                } else {
+                    showAlert('Error analyzing resume: ' + data.message, 'error');
+                }
+            } catch (error) {
+                showAlert('Error analyzing resume: ' + error.message, 'error');
+            }
+
+            hideLoading();
+        }
+
+        // Analyze against selected company using ML
+        async function analyzeSelectedCompany() {
+            if (!resumeData || !selectedCompany) {
+                showAlert('Please upload a resume and select a company', 'error');
+                return;
+            }
+
+            showLoading(`Running ML analysis for ${selectedCompany}...`);
+
+            try {
+                const response = await fetch('/ml-analyze', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        resume_text: resumeData.resume_text || resumeData.text,
+                        company: selectedCompany
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.status === 'success') {
+                    displayMLAnalysisResult(data);
+                } else {
+                    showAlert('Error analyzing resume: ' + data.message, 'error');
+                }
+            } catch (error) {
+                showAlert('Error analyzing resume: ' + error.message, 'error');
+            }
+
+            hideLoading();
+        }
+
+        // Display results for all companies with ML analysis
+        function displayAllCompaniesResults(data) {
+            const container = document.getElementById('resultsContent');
+            let html = `
+                <div class="alert alert-success">
+                    <strong>🤖 ML-Powered Analysis Complete!</strong> Analyzed ${data.total_companies} companies using advanced AI.
+                    Found ${data.resume_skills?.length || 0} skills in your resume.
+                </div>
+                <h3>🏆 AI-Powered Company Rankings</h3>
+                <p style="color: #666; margin-bottom: 20px;">
+                    Rankings based on semantic similarity analysis and contextual skill matching
+                </p>
+            `;
+
+            data.company_analysis.forEach((result, index) => {
+                // Use ML analysis (new format)
+                const analysis = result.ml_analysis;
+                const eligibilityColor = getEligibilityColor(analysis.eligibility_level);
+                const score = analysis.ml_eligibility_score;
+                
+                html += `
+                    <div class="score-card">
+                        <div class="score-header">
+                            <h4>${index + 1}. ${result.company} 🤖</h4>
+                            <span style="color: ${eligibilityColor}; font-weight: bold;">
+                                ${analysis.eligibility_level}
+                            </span>
+                        </div>
+                        <div class="score-bar">
+                            <div class="score-fill" style="width: ${score}%"></div>
+                        </div>
+                        <p><strong>🤖 ML Score:</strong> ${score}%</p>
+                        
+                        ${analysis.processing_info ? `
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 10px 0; font-size: 0.9em;">
+                                <div>🔬 Semantic: ${analysis.processing_info.semantic_component}%</div>
+                                <div>📊 Skills: ${analysis.processing_info.skill_component}%</div>
+                            </div>
+                            <div style="font-size: 0.9em; color: #666; margin: 5px 0;">
+                                Skills Analyzed: ${analysis.processing_info.total_skills_analyzed} | 
+                                Semantic Matches: ${analysis.processing_info.semantic_matches_found}
+                            </div>
+                        ` : ''}
+                        
+                        <p><strong>Experience Score:</strong> ${analysis.experience_analysis?.score || 0}%</p>
+                        
+                        ${analysis.ml_explanation ? `
+                            <div style="background: #f0f8ff; padding: 10px; border-radius: 5px; margin-top: 10px; font-size: 0.9em;">
+                                <strong>🤖 AI Insight:</strong> ${analysis.ml_explanation.summary}
+                            </div>
+                        ` : ''}
+                        
+                        ${analysis.semantic_analysis ? `
+                            <div style="background: #f3e5f5; padding: 8px; border-radius: 5px; margin-top: 8px; font-size: 0.85em;">
+                                <strong>🧠 Semantic Analysis:</strong> 
+                                Overall: ${(analysis.semantic_analysis.overall_similarity * 100).toFixed(1)}% | 
+                                Contextual: ${(analysis.semantic_analysis.contextual_match * 100).toFixed(1)}%
+                            </div>
+                        ` : ''}
+                        
+                        <!-- Missing Skills Display -->
+                        ${analysis.skill_readiness_levels && analysis.skill_readiness_levels.Missing && analysis.skill_readiness_levels.Missing.length > 0 ? `
+                            <div style="background: #fff3e0; padding: 10px; border-radius: 5px; margin-top: 10px;">
+                                <strong>❌ Missing Skills (${analysis.skill_readiness_levels.Missing.length}):</strong>
+                                <div style="margin-top: 5px;">
+                                    ${analysis.skill_readiness_levels.Missing.slice(0, 5).map(skill => `
+                                        <span class="skill-tag missing" style="background: #ff6b6b; color: white; padding: 3px 8px; border-radius: 12px; margin: 2px; display: inline-block; font-size: 0.8em;">
+                                            ${skill.skill}
+                                        </span>
+                                    `).join('')}
+                                    ${analysis.skill_readiness_levels.Missing.length > 5 ? `<span style="color: #666; font-size: 0.8em;">... and ${analysis.skill_readiness_levels.Missing.length - 5} more</span>` : ''}
+                                </div>
+                            </div>
+                        ` : ''}
+                        
+                        <!-- Learning Recommendations -->
+                        ${analysis.learning_recommendations && Object.keys(analysis.learning_recommendations).length > 0 ? `
+                            <div style="background: #e8f5e8; padding: 12px; border-radius: 5px; margin-top: 10px;">
+                                <strong>💡 Learning Recommendations:</strong>
+                                <div style="margin-top: 8px;">
+                                    ${Object.entries(analysis.learning_recommendations).slice(0, 3).map(([skill, platforms]) => `
+                                        <div style="margin: 8px 0; padding: 8px; background: white; border-radius: 4px; font-size: 0.85em;">
+                                            <strong>📚 ${skill.charAt(0).toUpperCase() + skill.slice(1)}:</strong>
+                                            <div style="margin-top: 4px;">
+                                                <div><strong>🆓 Free:</strong> ${platforms.free?.slice(0, 2).join(', ') || 'N/A'}</div>
+                                                <div><strong>💰 Paid:</strong> ${platforms.paid?.slice(0, 2).join(', ') || 'N/A'}</div>
+                                            </div>
+                                        </div>
+                                    `).join('')}
+                                    ${Object.keys(analysis.learning_recommendations).length > 3 ? 
+                                        `<div style="text-align: center; color: #666; font-size: 0.8em; margin-top: 5px;">... and ${Object.keys(analysis.learning_recommendations).length - 3} more skills</div>` : ''}
+                                </div>
+                            </div>
+                        ` : ''}
+                        
+                        <!-- Learning Roadmap -->
+                        ${analysis.learning_roadmap && analysis.learning_roadmap.learning_path && analysis.learning_roadmap.learning_path.length > 0 ? `
+                            <div style="background: #f0f8ff; padding: 12px; border-radius: 5px; margin-top: 10px;">
+                                <strong>🗺️ Learning Roadmap (${analysis.learning_roadmap.estimated_duration}):</strong>
+                                <div style="margin-top: 8px;">
+                                    ${analysis.learning_roadmap.learning_path.slice(0, 2).map(phase => `
+                                        <div style="margin: 6px 0; padding: 8px; background: white; border-radius: 4px; border-left: 3px solid #2196f3; font-size: 0.85em;">
+                                            <strong>Phase ${phase.phase}: ${phase.title}</strong> (${phase.estimated_time})
+                                            <div style="margin-top: 4px;">
+                                                ${phase.skills.slice(0, 3).map(skill => `
+                                                    <span style="background: #2196f3; color: white; padding: 2px 6px; border-radius: 8px; margin: 1px; display: inline-block; font-size: 0.75em;">
+                                                        ${skill}
+                                                    </span>
+                                                `).join('')}
+                                                ${phase.skills.length > 3 ? `<span style="color: #666; font-size: 0.75em;">+${phase.skills.length - 3} more</span>` : ''}
+                                            </div>
+                                        </div>
+                                    `).join('')}
+                                    ${analysis.learning_roadmap.learning_path.length > 2 ? 
+                                        `<div style="text-align: center; color: #666; font-size: 0.8em;">... and ${analysis.learning_roadmap.learning_path.length - 2} more phases</div>` : ''}
+                                </div>
+                            </div>
+                        ` : ''}
+                        
+                        <!-- View Details Button -->
+                        <div style="text-align: center; margin-top: 15px;">
+                            <button class="btn" style="font-size: 0.9em; padding: 8px 16px;" onclick="analyzeCompanyDetails('${result.company}')">
+                                🔍 View Detailed Analysis
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+            document.getElementById('resultsContainer').style.display = 'block';
+            document.getElementById('resultsContainer').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // Function to analyze company details (for the button)
+        async function analyzeCompanyDetails(companyName) {
+            if (!resumeData) {
+                showAlert('Resume data not available', 'error');
+                return;
+            }
+            
+            // Set the selected company and run detailed analysis
+            selectedCompany = companyName;
+            
+            // Update UI to show selected company
+            document.querySelectorAll('.company-card').forEach(card => {
+                card.classList.remove('selected');
+                if (card.textContent.trim() === companyName) {
+                    card.classList.add('selected');
+                }
+            });
+            
+            // Run detailed ML analysis
+            await analyzeSelectedCompany();
+        }
+
+        // Display ML analysis result for single company
+        function displayMLAnalysisResult(data) {
+            const container = document.getElementById('resultsContent');
+            const mlAnalysis = data.ml_analysis;
+            const eligibilityColor = getEligibilityColor(mlAnalysis.eligibility_level);
+
+            let html = `
+                <div class="alert alert-success">
+                    <strong>🤖 ML-Powered Analysis Complete for ${data.company}!</strong>
+                    <br>Using Sentence-BERT embeddings and semantic similarity
+                </div>
+                
+                <div class="score-card">
+                    <div class="score-header">
+                        <h3>🎯 ${data.company} - ${mlAnalysis.role}</h3>
+                        <span style="color: ${eligibilityColor}; font-weight: bold; font-size: 1.2em;">
+                            ${mlAnalysis.eligibility_level}
+                        </span>
+                    </div>
+                    <div class="score-bar">
+                        <div class="score-fill" style="width: ${mlAnalysis.ml_eligibility_score}%"></div>
+                    </div>
+                    <h4>🤖 ML Eligibility Score: ${mlAnalysis.ml_eligibility_score}%</h4>
+                    
+                    <!-- ML Processing Information -->
+                    <div class="ml-info-section" style="background: #e3f2fd; padding: 20px; border-radius: 8px; margin: 20px 0;">
+                        <h4>🧠 ML Analysis Breakdown</h4>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                            <div>
+                                <strong>🔬 Semantic Component:</strong> ${mlAnalysis.processing_info?.semantic_component || 0}%
+                                <br><small>Contextual understanding using Sentence-BERT</small>
+                            </div>
+                            <div>
+                                <strong>📊 Skill Component:</strong> ${mlAnalysis.processing_info?.skill_component || 0}%
+                                <br><small>Traditional keyword matching</small>
+                            </div>
+                        </div>
+                        <p style="margin-top: 15px;">
+                            <strong>🎯 Skills Analyzed:</strong> ${mlAnalysis.processing_info?.total_skills_analyzed || 0} |
+                            <strong>🔗 Semantic Matches:</strong> ${mlAnalysis.processing_info?.semantic_matches_found || 0}
+                        </p>
+                    </div>
+
+                    <!-- Semantic Analysis Results -->
+                    ${mlAnalysis.semantic_analysis ? `
+                        <div class="semantic-section" style="background: #f3e5f5; padding: 20px; border-radius: 8px; margin: 20px 0;">
+                            <h4>🔍 Semantic Similarity Analysis</h4>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                                <div>
+                                    <strong>Overall Similarity:</strong> ${(mlAnalysis.semantic_analysis.overall_similarity * 100).toFixed(1)}%
+                                    <div class="score-bar" style="margin: 5px 0;">
+                                        <div class="score-fill" style="width: ${mlAnalysis.semantic_analysis.overall_similarity * 100}%; background: linear-gradient(90deg, #9c27b0, #e91e63);"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <strong>Contextual Match:</strong> ${(mlAnalysis.semantic_analysis.contextual_match * 100).toFixed(1)}%
+                                    <div class="score-bar" style="margin: 5px 0;">
+                                        <div class="score-fill" style="width: ${mlAnalysis.semantic_analysis.contextual_match * 100}%; background: linear-gradient(90deg, #673ab7, #3f51b5);"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <p style="margin-top: 10px; font-size: 0.9em; color: #666;">
+                                Powered by Sentence-BERT embeddings for deep contextual understanding
+                            </p>
+                        </div>
+                    ` : ''}
+                    
+                    <!-- ML Explanation -->
+                    ${mlAnalysis.ml_explanation ? `
+                        <div class="explanation-section" style="background: #fff3e0; padding: 20px; border-radius: 8px; margin: 20px 0;">
+                            <h4>🤖 AI-Generated Explanation</h4>
+                            <p><strong>${mlAnalysis.ml_explanation.summary}</strong></p>
+                            
+                            ${mlAnalysis.ml_explanation.ml_insights?.length > 0 ? `
+                                <div style="margin: 15px 0;">
+                                    <strong>🔬 ML Insights:</strong>
+                                    <ul style="margin: 5px 0; padding-left: 20px;">
+                                        ${mlAnalysis.ml_explanation.ml_insights.map(insight => `<li>${insight}</li>`).join('')}
+                                    </ul>
+                                </div>
+                            ` : ''}
+                            
+                            ${mlAnalysis.ml_explanation.semantic_insights?.length > 0 ? `
+                                <div style="margin: 15px 0;">
+                                    <strong>🧠 Semantic Insights:</strong>
+                                    <ul style="margin: 5px 0; padding-left: 20px;">
+                                        ${mlAnalysis.ml_explanation.semantic_insights.map(insight => `<li>${insight}</li>`).join('')}
+                                    </ul>
+                                </div>
+                            ` : ''}
+                            
+                            <div style="color: #e65100; margin-top: 15px;">
+                                <strong>🎯 Confidence Level:</strong> ${mlAnalysis.ml_explanation.confidence_level?.toUpperCase() || 'MEDIUM'}
+                            </div>
+                        </div>
+                    ` : ''}
+                    
+                    <!-- Skill Readiness Analysis -->
+                    ${mlAnalysis.skill_readiness_levels ? `
+                        <div class="skills-container">
+                            ${Object.entries(mlAnalysis.skill_readiness_levels).map(([level, skills]) => {
+                                if (!skills || skills.length === 0) return '';
+                                const emoji = {'Advanced': '🟢', 'Intermediate': '🟡', 'Beginner': '🟠', 'Missing': '🔴'}[level] || '⚪';
+                                return `
+                                    <div style="margin: 15px 0;">
+                                        <h4>${emoji} ${level} Skills (${skills.length})</h4>
+                                        <div style="margin-top: 10px;">
+                                            ${skills.slice(0, 8).map(skill => `
+                                                <span class="skill-tag ${level === 'Missing' ? 'missing' : ''}" title="${skill.mentions || 0} mentions">
+                                                    ${skill.skill}
+                                                </span>
+                                            `).join('')}
+                                            ${skills.length > 8 ? `<span style="color: #666; font-size: 0.9em;">... and ${skills.length - 8} more</span>` : ''}
+                                        </div>
+                                    </div>
+                                `;
+                            }).join('')}
+                        </div>
+                    ` : ''}
+                </div>
+            `;
+
+            // Add Learning Roadmap
+            if (mlAnalysis.learning_roadmap && mlAnalysis.learning_roadmap.learning_path?.length > 0) {
+                html += `
+                    <div class="roadmap-section" style="background: #e8f5e8; padding: 25px; border-radius: 10px; margin: 20px 0;">
+                        <h4>🗺️ AI-Generated Learning Roadmap</h4>
+                        <p><strong>Total Skills to Learn:</strong> ${mlAnalysis.learning_roadmap.total_skills}</p>
+                        <p><strong>Estimated Duration:</strong> ${mlAnalysis.learning_roadmap.estimated_duration}</p>
+                        
+                        ${mlAnalysis.learning_roadmap.learning_path.map(phase => `
+                            <div class="roadmap-phase" style="background: white; padding: 20px; border-radius: 8px; margin: 15px 0; border-left: 4px solid #4caf50;">
+                                <h5>Phase ${phase.phase}: ${phase.title}</h5>
+                                <p style="color: #666; margin: 5px 0;">${phase.description}</p>
+                                <p><strong>Duration:</strong> ${phase.estimated_time} | <strong>Priority:</strong> ${phase.priority}</p>
+                                <div style="margin-top: 10px;">
+                                    ${phase.skills.map(skill => `
+                                        <span style="background: #4caf50; color: white; padding: 4px 8px; border-radius: 12px; margin: 2px; display: inline-block; font-size: 0.9em;">
+                                            ${skill}
+                                        </span>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            }
+
+            // Add Learning Platform Recommendations
+            if (mlAnalysis.learning_recommendations && Object.keys(mlAnalysis.learning_recommendations).length > 0) {
+                html += `
+                    <div class="recommendations" style="background: #fff8e1; border: 1px solid #ffcc02; border-radius: 10px; padding: 20px; margin: 20px 0;">
+                        <h4>💡 AI-Powered Learning Recommendations</h4>
+                        ${Object.entries(mlAnalysis.learning_recommendations).slice(0, 3).map(([skill, platforms]) => `
+                            <div class="recommendation-item" style="background: white; padding: 15px; border-radius: 8px; margin: 10px 0; border-left: 4px solid #ff9800;">
+                                <strong>📚 ${skill.charAt(0).toUpperCase() + skill.slice(1)}</strong>
+                                <div style="margin-top: 8px;">
+                                    <div style="margin: 5px 0;">
+                                        <strong>🆓 Free:</strong> ${platforms.free?.slice(0, 3).join(', ') || 'N/A'}
+                                    </div>
+                                    <div style="margin: 5px 0;">
+                                        <strong>💰 Paid:</strong> ${platforms.paid?.slice(0, 3).join(', ') || 'N/A'}
+                                    </div>
+                                </div>
+                            </div>
+                        `).join('')}
+                        ${Object.keys(mlAnalysis.learning_recommendations).length > 3 ? 
+                            `<p style="text-align: center; color: #666; margin-top: 15px;">... and recommendations for ${Object.keys(mlAnalysis.learning_recommendations).length - 3} more skills</p>` : ''}
+                    </div>
+                `;
+            }
+
+            container.innerHTML = html;
+            document.getElementById('resultsContainer').style.display = 'block';
+            document.getElementById('resultsContainer').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Get color based on eligibility level
+        function getEligibilityColor(level) {
+            switch(level) {
+                case 'Highly Eligible': return '#28a745';
+                case 'Eligible': return '#17a2b8';
+                case 'Partially Eligible': return '#ffc107';
+                case 'Not Eligible': return '#dc3545';
+                default: return '#6c757d';
+            }
+        }
+
+        // Show loading state
+        function showLoading(message) {
+            const container = document.getElementById('resultsContent');
+            container.innerHTML = `
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <p>${message}</p>
+                </div>
+            `;
+            document.getElementById('resultsContainer').style.display = 'block';
+        }
+
+        // Hide loading state
+        function hideLoading() {
+            // Loading will be replaced by results
+        }
+
+        // Show alert message
+        function showAlert(message, type) {
+            const alertDiv = document.createElement('div');
+            alertDiv.className = `alert alert-${type}`;
+            alertDiv.innerHTML = message;
+            
+            const mainContent = document.querySelector('.main-content');
+            mainContent.insertBefore(alertDiv, mainContent.firstChild);
+            
+            // Auto remove after 5 seconds
+            setTimeout(() => {
+                alertDiv.remove();
+            }, 5000);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,566 @@
+{
+  "report_metadata": {
+    "generated_at": "2026-01-24T20:10:22.658507",
+    "report_type": "resume_analysis",
+    "version": "1.0"
+  },
+  "user_info": {
+    "filename": "john_doe_resume.txt",
+    "analysis_date": "2024-01-24",
+    "analysis_type": "comprehensive"
+  },
+  "analysis_data": {
+    "company": "Google",
+    "role": "Software Engineer",
+    "optimization": {
+      "analysis_details": {
+        "ats": {
+          "ats_score": 75,
+          "issues": [],
+          "suggestions": [
+            {
+              "category": "ats",
+              "description": "Include more industry-specific keywords and technical terms",
+              "impact": "high",
+              "title": "Increase Relevant Keywords",
+              "type": "important"
+            }
+          ]
+        },
+        "content": {
+          "metrics": {
+            "buzzwords_found": 0,
+            "quantifiable_achievements": 14,
+            "strong_verbs": 5,
+            "weak_verbs": 0
+          },
+          "suggestions": []
+        },
+        "skills": {
+          "current_skills": [
+            "Django",
+            "AWS",
+            "Azure",
+            "Kubernetes",
+            "MongoDB",
+            "Docker",
+            "PostgreSQL",
+            "Jenkins",
+            "Redis",
+            "Node.js",
+            "Java",
+            "JIRA",
+            "Git",
+            "JavaScript",
+            "Flask",
+            "Python",
+            "React"
+          ],
+          "skill_count": 17,
+          "suggestions": [
+            {
+              "category": "skills",
+              "description": "Consider adding these in-demand skills: TypeScript, System Design, Microservices",
+              "impact": "high",
+              "skills": [
+                "TypeScript",
+                "System Design",
+                "Microservices",
+                "Cloud"
+              ],
+              "title": "Add Software Engineer Skills",
+              "type": "important"
+            },
+            {
+              "category": "skills",
+              "description": "These technologies are trending in 2024: AI/ML, TypeScript, Terraform",
+              "impact": "medium",
+              "skills": [
+                "AI/ML",
+                "TypeScript",
+                "Terraform",
+                "Next.js",
+                "GraphQL",
+                "Rust",
+                "Go"
+              ],
+              "title": "Consider Trending Technologies",
+              "type": "suggestion"
+            }
+          ]
+        },
+        "structure": {
+          "character_count": 1076,
+          "missing_sections": [
+            "summary",
+            "projects"
+          ],
+          "sections_found": [
+            "contact",
+            "experience",
+            "education",
+            "skills"
+          ],
+          "structure_score": 60,
+          "suggestions": [
+            {
+              "category": "structure",
+              "description": "Include a 2-3 line summary highlighting your key strengths",
+              "impact": "medium",
+              "title": "Add Professional Summary",
+              "type": "important"
+            },
+            {
+              "category": "content",
+              "description": "Resume is too short (125 words). Aim for 300-600 words.",
+              "impact": "medium",
+              "title": "Expand Resume Content",
+              "type": "important"
+            }
+          ],
+          "word_count": 125
+        }
+      },
+      "overall_score": 78.3,
+      "scores": {
+        "ats_compatibility": 75,
+        "content_quality": 100,
+        "structure": 60
+      },
+      "suggestions": {
+        "critical": [],
+        "important": [
+          {
+            "category": "structure",
+            "description": "Include a 2-3 line summary highlighting your key strengths",
+            "impact": "medium",
+            "title": "Add Professional Summary",
+            "type": "important"
+          },
+          {
+            "category": "content",
+            "description": "Resume is too short (125 words). Aim for 300-600 words.",
+            "impact": "medium",
+            "title": "Expand Resume Content",
+            "type": "important"
+          },
+          {
+            "category": "ats",
+            "description": "Include more industry-specific keywords and technical terms",
+            "impact": "high",
+            "title": "Increase Relevant Keywords",
+            "type": "important"
+          },
+          {
+            "category": "skills",
+            "description": "Consider adding these in-demand skills: TypeScript, System Design, Microservices",
+            "impact": "high",
+            "skills": [
+              "TypeScript",
+              "System Design",
+              "Microservices",
+              "Cloud"
+            ],
+            "title": "Add Software Engineer Skills",
+            "type": "important"
+          }
+        ],
+        "other": [
+          {
+            "category": "skills",
+            "description": "These technologies are trending in 2024: AI/ML, TypeScript, Terraform",
+            "impact": "medium",
+            "skills": [
+              "AI/ML",
+              "TypeScript",
+              "Terraform",
+              "Next.js",
+              "GraphQL",
+              "Rust",
+              "Go"
+            ],
+            "title": "Consider Trending Technologies",
+            "type": "suggestion"
+          }
+        ],
+        "total_count": 5
+      },
+      "summary": {
+        "missing_sections": 2,
+        "sections_found": 4,
+        "skills_identified": 17,
+        "word_count": 125
+      }
+    },
+    "ml_analysis": {
+      "company": "Google",
+      "education_analysis": {
+        "message": "No clear education information found",
+        "score": 30
+      },
+      "eligibility_level": "Eligible",
+      "experience_analysis": {
+        "candidate_years": 0,
+        "confidence": "low",
+        "message": "No clear experience mentioned",
+        "required_years": 3,
+        "score": 10
+      },
+      "learning_recommendations": {
+        "algorithms": {
+          "free": [
+            "YouTube",
+            "freeCodeCamp",
+            "GeeksforGeeks",
+            "Official Documentation"
+          ],
+          "paid": [
+            "Coursera",
+            "Udemy",
+            "Pluralsight",
+            "LinkedIn Learning"
+          ]
+        }
+      },
+      "learning_roadmap": {
+        "estimated_duration": "2-4 weeks",
+        "learning_path": [
+          {
+            "description": "Start with fundamental skills that have no prerequisites",
+            "estimated_time": "2-3 weeks",
+            "phase": 1,
+            "priority": "High",
+            "skills": [
+              "algorithms"
+            ],
+            "title": "Foundation Phase"
+          }
+        ],
+        "total_skills": 1
+      },
+      "ml_eligibility_score": 58.12,
+      "ml_explanation": {
+        "confidence_level": "medium",
+        "ml_insights": [
+          "Semantic similarity analysis: 37.61%",
+          "Traditional skill matching: 88.89%",
+          "Overall contextual match: 37.3%"
+        ],
+        "recommendations": [
+          "You meet the basic requirements - apply and showcase your potential",
+          "Focus on strengthening your weaker areas",
+          "Build projects that demonstrate your matching skills"
+        ],
+        "semantic_insights": [
+          "Skills section similarity: 0.0%",
+          "Experience section similarity: 0.0%",
+          "Education section similarity: 0.0%"
+        ],
+        "summary": "Based on ML analysis, you are eligible for Google with a 58.12% match score."
+      },
+      "processing_info": {
+        "semantic_component": 37.61,
+        "semantic_matches_found": 9,
+        "skill_component": 88.89,
+        "total_skills_analyzed": 18
+      },
+      "role": "Software Engineer",
+      "score_breakdown": {
+        "calculation_method": "spaCy-based semantic analysis",
+        "eligibility_level": "Eligible",
+        "ml_eligibility_score": 58.12,
+        "semantic_component": 37.61,
+        "semantic_weight": 0.6,
+        "skill_component": 88.89,
+        "skill_weight": 0.4
+      },
+      "semantic_analysis": {
+        "analysis_method": "spaCy built-in similarity",
+        "contextual_match": 0.373256494875134,
+        "overall_similarity": 0.378938224712363,
+        "section_similarities": {
+          "education_similarity": 0.0,
+          "experience_similarity": 0.0,
+          "full_text_similarity": 0.37404062361616464,
+          "projects_similarity": 0.0,
+          "skills_similarity": 0.0,
+          "summary_similarity": 0.37247236613410345
+        },
+        "semantic_insights": [
+          "Low semantic match - limited alignment with job requirements",
+          "Semantic similarity analysis using spaCy word vectors",
+          "Contextual understanding based on linguistic patterns"
+        ]
+      },
+      "semantic_skill_analysis": {
+        "overall_similarity": 0.9282691306035574,
+        "semantic_matches": 9,
+        "semantic_score": 1.0,
+        "skill_matches": [
+          {
+            "match_type": "semantic",
+            "matched_skill": "python",
+            "required_skill": "python",
+            "similarity": 1.0
+          },
+          {
+            "match_type": "semantic",
+            "matched_skill": "java",
+            "required_skill": "java",
+            "similarity": 1.0
+          },
+          {
+            "match_type": "semantic",
+            "matched_skill": "javascript",
+            "required_skill": "javascript",
+            "similarity": 1.0
+          },
+          {
+            "match_type": "semantic",
+            "matched_skill": "jenkins",
+            "required_skill": "data structures",
+            "similarity": 0.7181746119936793
+          },
+          {
+            "match_type": "semantic",
+            "matched_skill": "jenkins",
+            "required_skill": "algorithms",
+            "similarity": 0.6343444702149594
+          },
+          {
+            "match_type": "semantic",
+            "matched_skill": "git",
+            "required_skill": "git",
+            "similarity": 1.0
+          },
+          {
+            "match_type": "semantic",
+            "matched_skill": "docker",
+            "required_skill": "docker",
+            "similarity": 1.0
+          },
+          {
+            "match_type": "semantic",
+            "matched_skill": "kubernetes",
+            "required_skill": "kubernetes",
+            "similarity": 1.0
+          },
+          {
+            "match_type": "semantic",
+            "matched_skill": "react",
+            "required_skill": "gcp",
+            "similarity": 0.6123749015590457
+          }
+        ],
+        "total_required": 9
+      },
+      "skill_analysis": {
+        "match_percentage": 88.89,
+        "matched_skills": [
+          "python",
+          "java",
+          "javascript",
+          "data structures",
+          "git",
+          "docker",
+          "kubernetes",
+          "gcp"
+        ],
+        "missing_skills": [
+          "algorithms"
+        ],
+        "score": 8,
+        "total_required": 9
+      },
+      "skill_readiness_levels": {
+        "Advanced": [
+          {
+            "category": "Programming Languages",
+            "contexts": 1,
+            "mentions": 2,
+            "skill": "python"
+          },
+          {
+            "category": "Programming Languages",
+            "contexts": 1,
+            "mentions": 2,
+            "skill": "java"
+          },
+          {
+            "category": "Programming Languages",
+            "contexts": 1,
+            "mentions": 1,
+            "skill": "javascript"
+          },
+          {
+            "category": "Programming Languages",
+            "contexts": 1,
+            "mentions": 33,
+            "skill": "c"
+          },
+          {
+            "category": "Web Technologies",
+            "contexts": 1,
+            "mentions": 2,
+            "skill": "react"
+          },
+          {
+            "category": "Web Technologies",
+            "contexts": 1,
+            "mentions": 2,
+            "skill": "node.js"
+          },
+          {
+            "category": "Web Technologies",
+            "contexts": 1,
+            "mentions": 2,
+            "skill": "django"
+          },
+          {
+            "category": "Web Technologies",
+            "contexts": 1,
+            "mentions": 1,
+            "skill": "flask"
+          },
+          {
+            "category": "Databases",
+            "contexts": 1,
+            "mentions": 1,
+            "skill": "postgresql"
+          },
+          {
+            "category": "Databases",
+            "contexts": 1,
+            "mentions": 1,
+            "skill": "mongodb"
+          },
+          {
+            "category": "Databases",
+            "contexts": 1,
+            "mentions": 1,
+            "skill": "redis"
+          },
+          {
+            "category": "Cloud Platforms",
+            "contexts": 1,
+            "mentions": 1,
+            "skill": "aws"
+          },
+          {
+            "category": "Cloud Platforms",
+            "contexts": 1,
+            "mentions": 1,
+            "skill": "azure"
+          },
+          {
+            "category": "Cloud Platforms",
+            "contexts": 1,
+            "mentions": 1,
+            "skill": "docker"
+          },
+          {
+            "category": "Cloud Platforms",
+            "contexts": 1,
+            "mentions": 1,
+            "skill": "kubernetes"
+          },
+          {
+            "category": "Cloud Platforms",
+            "contexts": 1,
+            "mentions": 1,
+            "skill": "jenkins"
+          },
+          {
+            "category": "Tools",
+            "contexts": 1,
+            "mentions": 1,
+            "skill": "git"
+          },
+          {
+            "category": "Tools",
+            "contexts": 1,
+            "mentions": 1,
+            "skill": "jira"
+          }
+        ],
+        "Beginner": [],
+        "Intermediate": [],
+        "Missing": [
+          {
+            "category": "Required",
+            "contexts": 0,
+            "mentions": 0,
+            "skill": "data structures"
+          },
+          {
+            "category": "Required",
+            "contexts": 0,
+            "mentions": 0,
+            "skill": "algorithms"
+          },
+          {
+            "category": "Required",
+            "contexts": 0,
+            "mentions": 0,
+            "skill": "gcp"
+          }
+        ]
+      }
+    },
+    "ats_report": {
+      "action_plan": [
+        {
+          "actions": [
+            "Use Clear Section Headers"
+          ],
+          "priority": "medium",
+          "timeline": "Next 2 weeks",
+          "title": "Additional Optimizations"
+        }
+      ],
+      "compatibility_level": "Excellent",
+      "insights": [
+        {
+          "description": "Your resume is well-optimized for ATS systems and should pass most automated screenings.",
+          "title": "Excellent ATS Compatibility",
+          "type": "success"
+        }
+      ],
+      "issues": [
+        {
+          "description": "Only 125 words (recommended: 300-600)",
+          "severity": "medium",
+          "title": "Resume Too Short",
+          "type": "readability"
+        }
+      ],
+      "level_color": "green",
+      "recommendations": [
+        {
+          "category": "structure",
+          "description": "Use standard headers like 'Experience', 'Education', 'Skills'",
+          "impact": "Helps ATS identify and categorize information",
+          "priority": "medium",
+          "title": "Use Clear Section Headers"
+        }
+      ],
+      "report_timestamp": "2024-01-24T13:00:00Z",
+      "score_breakdown": {
+        "contact_info": 13,
+        "formatting": 25,
+        "keywords": 20,
+        "readability": 7,
+        "structure": 25
+      },
+      "summary": {
+        "character_count": 1076,
+        "critical_issues": 0,
+        "total_issues": 1,
+        "word_count": 125
+      },
+      "total_score": 90
+    },
+    "generated_at": "2024-01-24T13:00:00Z",
+    "report_type": "comprehensive_analysis"
+  }
+}
